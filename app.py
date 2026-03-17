@@ -128,8 +128,10 @@ def predict():
         prediction = model.predict(X_input)
         
         temp_max, temp_min, temp_median = prediction[0]
+        last_date = df['date'].iloc[-1]
+        prediction_date = last_date + timedelta(days=1)
         return jsonify({
-            "prediction_date": datetime.now().strftime("%Y-%m-%d"),
+            "prediction_date": prediction_date.strftime("%d-%m-%Y"),
             "prediction": {
                 "temp_max": round(float(temp_max), 2),
                 "temp_min": round(float(temp_min), 2),

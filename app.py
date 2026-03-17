@@ -129,7 +129,6 @@ def predict():
         
         temp_max, temp_min, temp_median = prediction[0]
         return jsonify({
-            "status": "success",
             "prediction_date": datetime.now().strftime("%Y-%m-%d"),
             "prediction": {
                 "temp_max": round(float(temp_max), 2),

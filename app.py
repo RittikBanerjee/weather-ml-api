@@ -4,17 +4,23 @@ import pandas as pd
 import numpy as np
 import joblib
 from datetime import datetime, timedelta
+import os
 
 app = Flask(__name__)
 
 # ----------------------
 # SETTINGS
 # ----------------------
-API_KEY = "SSEVK4F7VR5GDMJ96VK9PGZXR"
+API_KEY = os.getenv("API_KEY")
+
+if not API_KEY:
+    raise ValueError("API_KEY environment variable not set")
+
 LOCATION = "Kolkata"
 UNIT_GROUP = "metric"
 INCLUDE = "days"
-MODEL_PATH = "temp_model.pkl"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(BASE_DIR, "temp_model.pkl")
 
 model = joblib.load(MODEL_PATH)
 
@@ -48,7 +54,7 @@ def fetch_weather():
     url = f"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{LOCATION}/last7days?"
     url += f"key={API_KEY}&unitGroup={UNIT_GROUP}&contentType=json&include={INCLUDE}"
 
-    response = requests.get(url)
+    response = requests.get(url, timeout=10)
     response.raise_for_status()
 
     data = response.json()
@@ -132,4 +138,4 @@ def predict():
 # RUN APP
 # ----------------------
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))

@@ -120,15 +120,24 @@ def create_features(df):
 def predict():
     try:
         df = fetch_weather()
+        if df.empty:
+            return jsonify({"error": "Not enough data for prediction"}), 400
         df = create_features(df)
 
         X_input = df[feature_cols].iloc[-1:].values
         prediction = model.predict(X_input)
-
+        
+        temp_max, temp_min, temp_median = prediction[0]
         return jsonify({
-            "temp_max": float(prediction[0][0]),
-            "temp_min": float(prediction[0][1]),
-            "temp_median": float(prediction[0][2])
+            "status": "success",
+            "prediction_date": datetime.now().strftime("%Y-%m-%d"),
+            "prediction": {
+                "temp_max": round(float(temp_max), 2),
+                "temp_min": round(float(temp_min), 2),
+                "temp_median": round(float(temp_median), 2)
+            },
+            "unit": "Celsius",
+            "location": "Kolkata"
         })
 
     except Exception as e:

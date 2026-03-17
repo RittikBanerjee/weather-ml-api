@@ -1,34 +1,112 @@
-# Weather ML API 🌦️
+# Weather Prediction ML API 🌦️
 
-A Flask-based machine learning API that predicts:
-- Maximum temperature
-- Minimum temperature
-- Median temperature
+## 📌 Overview
 
-## Tech Stack
-- Flask
-- Scikit-learn
-- Pandas
-- NumPy
+This project is an end-to-end Machine Learning system that predicts:
 
-## Setup
+* Maximum Temperature
+* Minimum Temperature
+* Median Temperature
 
-1. Clone the repository:
-   git clone https://github.com/RittikBanerjee/weather-ml-api.git
+using historical weather data of Kolkata.
 
-2. Install dependencies:
-   pip install -r requirements.txt
+It integrates **data collection, feature engineering, model training, and deployment** into a single pipeline.
 
-3. Run:
-   python app.py
+---
 
-## Endpoint
+## ⚙️ Tech Stack
 
-GET /predict
+* Python
+* Flask
+* Pandas
+* NumPy
+* Scikit-learn
+* XGBoost
+
+---
+
+## 🧠 Model Details
+
+* Model: XGBoost Regressor
+* Input: Past 7 days weather data
+* Output: Next day temperature predictions
+
+---
+
+## 🔧 Feature Engineering
+
+The model uses:
+
+* Lag features (last 7 days)
+* Rolling statistics (mean, standard deviation)
+* Time-based features:
+
+  * Day of year
+  * Sin/Cos transformation (seasonality)
+
+---
+
+## 📊 Dataset
+
+* Location: Kolkata
+* File: `data/kolkata_daily_data_new.csv`
+* Contains daily weather parameters like:
+
+  * Temperature
+  * Humidity
+  * Pressure
+  * Wind speed
+  * Cloud cover
+  * Rainfall
+
+---
+
+## 🚀 API Endpoint
+
+### GET /predict
 
 Returns:
+
+```json
 {
   "temp_max": float,
   "temp_min": float,
   "temp_median": float
 }
+```
+
+---
+
+## 🛠️ Setup Instructions
+
+```bash
+git clone https://github.com/RittikBanerjee/weather-ml-api.git
+cd weather-ml-api
+pip install -r requirements.txt
+python app.py
+```
+
+---
+
+## 🌐 Deployment
+
+Deployed using Render: (Will be added soon)
+
+---
+
+## 📁 Project Structure
+
+```
+weather-ml-api/
+│
+├── app.py
+├── temp_model.pkl
+├── requirements.txt
+├── Procfile
+│
+├── data/
+│   └── kolkata_daily_data_new.csv
+│
+├── notebooks/
+│   └── model_training.ipynb
+```

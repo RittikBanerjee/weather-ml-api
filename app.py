@@ -20,7 +20,8 @@ LOCATION = "Kolkata"
 UNIT_GROUP = "metric"
 INCLUDE = "days"
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(BASE_DIR, "temp_model.pkl")
+MODEL_FILE = os.getenv("MODEL_FILE", "temp_model.pkl")  # default if not set
+MODEL_PATH = os.path.join(BASE_DIR, MODEL_FILE)
 
 model = joblib.load(MODEL_PATH)
 
@@ -133,9 +134,17 @@ def predict():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-
+@app.route("/healthz")
+def health_check():
+    return "OK", 200
 # ----------------------
 # RUN APP
 # ----------------------
+debug_mode = os.getenv("DEBUG", "False") == "True"
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+    app.run(
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 5000)),
+        debug=debug_mode
+    )

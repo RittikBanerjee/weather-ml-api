@@ -90,7 +90,7 @@ python app.py
 
 ## 🌐 Deployment
 
-Deployed using Render: (Will be added soon)
+Deployed using Render: https://weather-ml-api-1.onrender.com/predict
 
 ---
 

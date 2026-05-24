@@ -18,7 +18,7 @@ UNIT_GROUP = "metric"
 INCLUDE = "days"
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODEL_FILE = os.getenv("MODEL_FILE", "temp_model.pkl")  # default if not set
-MODEL_PATH = os.path.join(BASE_DIR, MODEL_FILE)
+MODEL_PATH = os.path.join(BASE_DIR, "models", MODEL_FILE)
 
 model = joblib.load(MODEL_PATH)
 

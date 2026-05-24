@@ -26,7 +26,7 @@ MODEL_FILE = os.getenv(
     "rainfall_model.pkl"
 )
 
-MODEL_PATH = os.path.join(BASE_DIR, MODEL_FILE)
+MODEL_PATH = os.path.join(BASE_DIR, "models", MODEL_FILE)
 
 model = joblib.load(MODEL_PATH)
 

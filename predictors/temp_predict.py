@@ -49,7 +49,7 @@ feature_cols = [
 # ----------------------
 def fetch_weather():
 
-    url = f"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{LOCATION}/last7days?"
+    url = f"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{LOCATION}/last8days?"
     url += f"key={API_KEY}&unitGroup={UNIT_GROUP}&contentType=json&include={INCLUDE}"
 
     response = requests.get(url, timeout=10)
